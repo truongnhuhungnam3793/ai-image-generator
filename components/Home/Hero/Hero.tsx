@@ -17,9 +17,9 @@ const Hero = () => {
 
     const options = {
       method: "POST",
-      url: "https://ai-text-to-image-generator-flux-free-api.p.rapidapi.com/aaaaaaaaaaaaaaaaaiimagegenerator/quick.php",
+      url: process.env.NEXT_PUBLIC_API_URL,
       headers: {
-        "x-rapidapi-key": "07832b5b0emsh066defc65cc8e29p1ed381jsn56d3531d6ab5",
+        "x-rapidapi-key": process.env.NEXT_PUBLIC_API_KEY,
         "x-rapidapi-host":
           "ai-text-to-image-generator-flux-free-api.p.rapidapi.com",
         "Content-Type": "application/json",
