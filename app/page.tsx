@@ -5,7 +5,6 @@ const HomePage = () => {
   return (
     <div>
       <Home />
-      <div className="h-[100vh]"></div>
       <Footer />
     </div>
   )

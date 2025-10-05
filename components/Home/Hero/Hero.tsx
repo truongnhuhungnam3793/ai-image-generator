@@ -57,7 +57,7 @@ const Hero = () => {
   }
 
   return (
-    <div className="w-[95%] min-h-screen mx-auto relative mt-[20vh]">
+    <div className="w-[95%] mx-auto relative mt-[20vh] pb-16">
       {/* Content */}
       <div className="relative z-10 text-white flex flex-col items-center justify-center">
         <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-center bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
