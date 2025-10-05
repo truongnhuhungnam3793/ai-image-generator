@@ -1,7 +1,60 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import axios from "axios"
+import { Loader2 } from "lucide-react"
+import { useState } from "react"
+import { toast } from "sonner"
 
 const Hero = () => {
+  const [prompt, setPrompt] = useState("")
+  const [loading, setLoading] = useState(false)
+  const [image, setImage] = useState("")
+
+  const handleGenerate = async () => {
+    setLoading(true)
+
+    const options = {
+      method: "POST",
+      url: "https://ai-text-to-image-generator-flux-free-api.p.rapidapi.com/aaaaaaaaaaaaaaaaaiimagegenerator/quick.php",
+      headers: {
+        "x-rapidapi-key": "07832b5b0emsh066defc65cc8e29p1ed381jsn56d3531d6ab5",
+        "x-rapidapi-host":
+          "ai-text-to-image-generator-flux-free-api.p.rapidapi.com",
+        "Content-Type": "application/json",
+      },
+      data: {
+        prompt: prompt,
+        style_id: 4,
+        size: "1-1",
+      },
+    }
+
+    try {
+      const response = await axios.request(options)
+      setImage(response?.data?.result?.data?.results[0]?.origin)
+
+      toast.success("Image generated successfully")
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        toast.error(error.response?.data.message)
+      } else {
+        toast.error("Failed to generate image")
+      }
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleDownload = () => {
+    const link = document.createElement("a")
+    link.target = "_blank"
+    link.href = image
+    link.download = "generated-image.jpg"
+    link.click()
+  }
+
   return (
     <div className="w-[95%] min-h-screen mx-auto relative mt-[20vh]">
       {/* Content */}
@@ -17,12 +70,17 @@ const Hero = () => {
           <Input
             placeholder="Generate Your Dream Image"
             className=" h-11 md:h-16 bg-white text-black text-xs sm:text-base placeholder:text-xs sm:placeholder:text-base"
+            value={prompt}
+            onChange={(e) => setPrompt(e.target.value)}
           />
           <Button
             size="lg"
             className="absolute right-2 md:right-6 top-0 bottom-0 my-auto cursor-pointer"
+            onClick={handleGenerate}
+            disabled={loading}
           >
-            Generate
+            {loading ? "Generating..." : "Generate"}
+            {loading && <Loader2 className="size-4 animate-spin" />}
           </Button>
         </div>
         {/* Tag */}
@@ -34,6 +92,25 @@ const Hero = () => {
           <Button variant="secondary">Minimalist</Button>
           <Button variant="secondary">Retro</Button>
         </div>
+        {/* Show Loading and Image */}
+        {loading && (
+          <div className="mt-6">
+            <Loader2 className="size-10 animate-spin" />
+          </div>
+        )}
+        {image && (
+          <div className="mt-8 flex flex-col items-center justify-center">
+            <img
+              src={image}
+              alt="Generated Image"
+              className="max-w-full h-[500px] rounded-lg shadow-lg"
+              loading="lazy"
+            />
+            <Button className="my-4 cursor-pointer" onClick={handleDownload}>
+              Download
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   )
