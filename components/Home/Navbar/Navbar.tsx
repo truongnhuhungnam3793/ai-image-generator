@@ -33,7 +33,7 @@ const Navbar = ({ openNav }: Props) => {
           <Link
             key={link.id}
             href={link.url}
-            className="relative text-white text-base w-fit block after:block after:content-[''] after:absolute after:h-[3px] after:bg-accent after:w-full after:scale-x-0 hover:after:scale-x-100 after:transition after:duration-300 after:origin-center"
+            className="relative text-white text-base w-fit block after:block after:content-[''] after:absolute after:h-[3px] after:bg-primary after:w-full after:scale-x-0 hover:after:scale-x-100 after:transition after:duration-300 after:origin-center"
           >
             <p>{link.label}</p>
           </Link>
