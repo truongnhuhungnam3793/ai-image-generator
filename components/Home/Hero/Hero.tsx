@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
 import axios from "axios"
 import { Loader2 } from "lucide-react"
 import { useState } from "react"
@@ -67,15 +68,15 @@ const Hero = () => {
         </p>
         {/* Prompt input box */}
         <div className="relative w-[95%] sm:w-[90%] md:w-[80%] lg:w-[70%] xl:w-[60%] mt-12 flex items-center justify-center">
-          <Input
+          <Textarea
             placeholder="Generate Your Dream Image"
-            className=" h-11 md:h-16 bg-white text-black text-xs sm:text-base placeholder:text-xs sm:placeholder:text-base"
+            className="h-[200px] bg-white text-black text-xs sm:text-base placeholder:text-xs sm:placeholder:text-base"
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
           />
           <Button
             size="lg"
-            className="absolute right-2 md:right-6 top-0 bottom-0 my-auto cursor-pointer"
+            className="absolute right-2 md:right-6 top-2 md:top-6 cursor-pointer"
             onClick={handleGenerate}
             disabled={loading}
           >
